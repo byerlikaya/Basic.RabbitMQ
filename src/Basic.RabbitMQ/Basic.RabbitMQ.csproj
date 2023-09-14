@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Title>Basic.RabbitMQ</Title>
+    <Authors>Barış Yerlikaya</Authors>
+    <Company>Barış Yerlikaya</Company>
+    <Copyright>Copyright (c) 2023 Barış Yerlikaya</Copyright>
+    <PackageProjectUrl>https://github.com/byerlikaya/Basic.RabbitMQ</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/byerlikaya/Basic.RabbitMQ</RepositoryUrl>
+    <PackageTags>RabbitMQ rabbitmq</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Description>.NET Core library that simplifies RabbitMQ usage and works with the Direct Exchange type.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+
+</Project>

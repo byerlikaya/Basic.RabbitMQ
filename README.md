@@ -2,8 +2,8 @@
 #### .NET Core library that simplifies RabbitMQ usage and works with the Direct Exchange type.
 
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/byerlikaya/Basic.RabbitMQ/dotnet.yml)
-[![Basic.RabbitMQ Nuget](https://img.shields.io/nuget/v/SmartWhere)](https://www.nuget.org/packages/Basic.RabbitMQ)
-[![Basic.RabbitMQ Nuget](https://img.shields.io/nuget/dt/SmartWhere)](https://www.nuget.org/packages/Basic.RabbitMQ)
+[![Basic.RabbitMQ Nuget](https://img.shields.io/nuget/v/Basic.RabbitMQ)](https://www.nuget.org/packages/Basic.RabbitMQ)
+[![Basic.RabbitMQ Nuget](https://img.shields.io/nuget/dt/Basic.RabbitMQ)](https://www.nuget.org/packages/Basic.RabbitMQ)
 
 #### Quick Start
 The usage of **Basic.RabbitMQ** is quite simple.

@@ -1,6 +1,7 @@
 ﻿using Basic.RabbitMQ.Options;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
+using System;
 
 namespace Basic.RabbitMQ.Services
 {

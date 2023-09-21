@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Title>Basic.RabbitMQ</Title>
     <Authors>Barış Yerlikaya</Authors>
     <Company>Barış Yerlikaya</Company>
@@ -14,8 +13,9 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>.NET Core library that simplifies RabbitMQ usage and works with the Direct Exchange type.</Description>
     <PackageId>Basic.RabbitMQ</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Product>Basic.RabbitMQ</Product>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

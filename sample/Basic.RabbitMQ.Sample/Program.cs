@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Basic.RabbitMQ.Consumer.Sample;
 using Basic.RabbitMQ.Interfaces;
+using Consumer.Sample;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client.Events;
 using System.Text;

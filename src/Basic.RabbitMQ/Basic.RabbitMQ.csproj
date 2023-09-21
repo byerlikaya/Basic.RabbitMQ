@@ -13,6 +13,9 @@
     <PackageTags>RabbitMQ rabbitmq</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>.NET Core library that simplifies RabbitMQ usage and works with the Direct Exchange type.</Description>
+    <PackageId>Basic.RabbitMQ</PackageId>
+    <Version>1.0.1</Version>
+    <Product>Basic.RabbitMQ</Product>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Basic.RabbitMQ.Consumer.Sample
+namespace Consumer.Sample
 {
     public class Startup
     {

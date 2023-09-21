@@ -1,7 +1,7 @@
 using Basic.RabbitMQ.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Basic.RabbitMQ.Producer.Sample.Api.Controllers
+namespace Producer.Sample.Api.Controllers
 {
     [ApiController]
     public class ProducerController : ControllerBase

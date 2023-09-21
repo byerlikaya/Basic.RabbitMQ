@@ -5,6 +5,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Basic.RabbitMQ\Basic.RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\src\Basic.RabbitMQ\Basic.RabbitMQ.csproj" />
   </ItemGroup>
 
   <ItemGroup>

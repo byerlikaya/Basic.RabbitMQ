@@ -1,23 +1,18 @@
-﻿using Basic.RabbitMQ.Extensions;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿namespace Consumer.Sample;
 
-namespace Consumer.Sample
+public class Startup
 {
-    public class Startup
+    private IConfiguration Configuration { get; }
+
+    public Startup()
     {
-        private IConfiguration Configuration { get; }
+        var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+        Configuration = builder.Build();
+    }
 
-        public Startup()
-        {
-            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
-            Configuration = builder.Build();
-        }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton(Configuration);
-            services.AddRabbitMQClient(Configuration);
-        }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSingleton(Configuration);
+        services.AddRabbitMQClient(Configuration);
     }
 }

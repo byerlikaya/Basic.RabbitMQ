@@ -1,8 +1,7 @@
-﻿namespace Basic.RabbitMQ.Interfaces
+﻿namespace Basic.RabbitMQ.Interfaces;
+
+public interface IMessageProducer
 {
-    public interface IMessageProducer
-    {
-        void SendMessage(string queueName, string routingKey, string message);
-        void SendMessage<T>(string queueName, string routingKey, T message);
-    }
+    void SendMessage(string queueName, string routingKey, string message);
+    void SendMessage<T>(string queueName, string routingKey, T message);
 }

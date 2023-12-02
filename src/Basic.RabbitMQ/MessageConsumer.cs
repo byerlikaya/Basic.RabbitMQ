@@ -1,43 +1,30 @@
-﻿using Basic.RabbitMQ.Interfaces;
-using Basic.RabbitMQ.Services;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+﻿namespace Basic.RabbitMQ;
 
-namespace Basic.RabbitMQ
+public class MessageConsumer(RabbitMQClientService rabbitMqClientService) : IMessageConsumer
 {
-    public class MessageConsumer : IMessageConsumer
+    public IModel Channel(string queueName, string routingKey)
     {
-        private readonly RabbitMQClientService _rabbitMqClientService;
+        var channel = rabbitMqClientService.Connect(queueName);
 
-        public MessageConsumer(RabbitMQClientService rabbitMqClientService)
-        {
-            _rabbitMqClientService = rabbitMqClientService;
-        }
+        channel.QueueBind(
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            queue: queueName,
+            routingKey: routingKey);
 
-        public IModel Channel(string queueName, string routingKey)
-        {
-            var channel = _rabbitMqClientService.Connect(queueName);
+        channel.BasicQos(0, 10, false);
 
-            channel.QueueBind(
-                exchange: _rabbitMqClientService.BrokerOptions.ExchangeName,
-                queue: queueName,
-                routingKey: routingKey);
+        return channel;
+    }
 
-            channel.BasicQos(0, 10, false);
+    public AsyncEventingBasicConsumer GetConsumer(IModel channel)
+    {
+        var consumer = new AsyncEventingBasicConsumer(channel);
 
-            return channel;
-        }
+        channel.BasicConsume(
+            queue: channel.CurrentQueue,
+            autoAck: false,
+            consumer: consumer);
 
-        public AsyncEventingBasicConsumer GetConsumer(IModel channel)
-        {
-            var consumer = new AsyncEventingBasicConsumer(channel);
-
-            channel.BasicConsume(
-                queue: channel.CurrentQueue,
-                autoAck: false,
-                consumer: consumer);
-
-            return consumer;
-        }
+        return consumer;
     }
 }

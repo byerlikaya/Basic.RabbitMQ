@@ -1,63 +1,49 @@
-﻿using Basic.RabbitMQ.Interfaces;
-using Basic.RabbitMQ.Services;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using System.Text;
+﻿namespace Basic.RabbitMQ;
 
-namespace Basic.RabbitMQ
+public class MessageProducer(RabbitMQClientService rabbitMqClientService) : IMessageProducer
 {
-    public class MessageProducer : IMessageProducer
+    public void SendMessage(string queueName, string routingKey, string message)
     {
-        private readonly RabbitMQClientService _rabbitMqClientService;
+        var channel = rabbitMqClientService.Connect(queueName);
 
-        public MessageProducer(RabbitMQClientService rabbitMqClientService)
-        {
-            _rabbitMqClientService = rabbitMqClientService;
-        }
+        channel.QueueBind(
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            queue: queueName,
+            routingKey: routingKey);
 
-        public void SendMessage(string queueName, string routingKey, string message)
-        {
-            var channel = _rabbitMqClientService.Connect(queueName);
+        var json = JsonConvert.SerializeObject(message);
+        var body = Encoding.UTF8.GetBytes(json);
 
-            channel.QueueBind(
-                exchange: _rabbitMqClientService.BrokerOptions.ExchangeName,
-                queue: queueName,
-                routingKey: routingKey);
+        var properties = channel.CreateBasicProperties();
+        properties.Persistent = true;
 
-            var json = JsonConvert.SerializeObject(message);
-            var body = Encoding.UTF8.GetBytes(json);
+        channel.BasicPublish(
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            routingKey: routingKey,
+            basicProperties: properties,
+            body: body);
+    }
 
-            var properties = channel.CreateBasicProperties();
-            properties.Persistent = true;
+    public void SendMessage<T>(string queueName, string routingKey, T message)
+    {
+        var channel = rabbitMqClientService.Connect(queueName);
 
-            channel.BasicPublish(
-                exchange: _rabbitMqClientService.BrokerOptions.ExchangeName,
-                routingKey: routingKey,
-                basicProperties: properties,
-                body: body);
-        }
+        channel.QueueBind(
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            queue: queueName,
+            routingKey: routingKey);
 
-        public void SendMessage<T>(string queueName, string routingKey, T message)
-        {
-            var channel = _rabbitMqClientService.Connect(queueName);
+        var json = JsonConvert.SerializeObject(message);
+        var body = Encoding.UTF8.GetBytes(json);
 
-            channel.QueueBind(
-                exchange: _rabbitMqClientService.BrokerOptions.ExchangeName,
-                queue: queueName,
-                routingKey: routingKey);
+        var properties = channel.CreateBasicProperties();
 
-            var json = JsonConvert.SerializeObject(message);
-            var body = Encoding.UTF8.GetBytes(json);
+        properties.Persistent = true;
 
-            var properties = channel.CreateBasicProperties();
-
-            properties.Persistent = true;
-
-            channel.BasicPublish(
-                exchange: _rabbitMqClientService.BrokerOptions.ExchangeName,
-                routingKey: routingKey,
-                basicProperties: properties,
-                body: body);
-        }
+        channel.BasicPublish(
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            routingKey: routingKey,
+            basicProperties: properties,
+            body: body);
     }
 }

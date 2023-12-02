@@ -1,7 +1,4 @@
-﻿using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-namespace Basic.RabbitMQ.Interfaces
+﻿namespace Basic.RabbitMQ.Interfaces
 {
     public interface IMessageConsumer
     {

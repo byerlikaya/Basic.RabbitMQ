@@ -1,9 +1,8 @@
-﻿namespace Basic.RabbitMQ.Interfaces
-{
-    public interface IMessageConsumer
-    {
-        IModel Channel(string queueName, string routingKey);
+﻿namespace Basic.RabbitMQ.Interfaces;
 
-        AsyncEventingBasicConsumer GetConsumer(IModel channel);
-    }
+public interface IMessageConsumer
+{
+    IModel Channel(string queueName, string routingKey);
+
+    AsyncEventingBasicConsumer GetConsumer(IModel channel);
 }

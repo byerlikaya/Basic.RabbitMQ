@@ -1,7 +1,7 @@
 ﻿namespace Basic.RabbitMQ.Services;
 
-public class RabbitMQClientService(IConfiguration configuration, ConnectionFactory connectionFactory)
-    : IDisposable
+// ReSharper disable once InconsistentNaming
+public class RabbitMQClientService(IConfiguration configuration, ConnectionFactory connectionFactory) : IDisposable
 {
     public readonly MessageBrokerOptions BrokerOptions = configuration.GetSection(nameof(MessageBrokerOptions)).Get<MessageBrokerOptions>();
 

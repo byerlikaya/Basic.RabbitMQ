@@ -4,8 +4,7 @@ public class MessageProducer(RabbitMQClientService rabbitMqClientService) : IMes
 {
     public void SendMessage(string queueName, string routingKey, string message)
     {
-        var channel = rabbitMqClientService.Connect(queueName);
-
+        using var channel = rabbitMqClientService.Connect(queueName);
         channel.QueueBind(
             exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
             queue: queueName,
@@ -26,8 +25,7 @@ public class MessageProducer(RabbitMQClientService rabbitMqClientService) : IMes
 
     public void SendMessage<T>(string queueName, string routingKey, T message)
     {
-        var channel = rabbitMqClientService.Connect(queueName);
-
+        using var channel = rabbitMqClientService.Connect(queueName);
         channel.QueueBind(
             exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
             queue: queueName,

@@ -38,19 +38,12 @@ builder.Services.AddRabbitMQClient(Configuration);
 
 ```csharp
 [ApiController]
-public class ProducerController : ControllerBase
+public class ProducerController(IMessageProducer messageProducer) : ControllerBase
 {
-    private readonly IMessageProducer _messageProducer;
-
-    public ProducerController(IMessageProducer messageProducer)
-    {
-        _messageProducer = messageProducer;
-    }
-
     [HttpPost("/sendMessage")]
-    public Task<IActionResult> SendEmail(string message)
+    public Task<IActionResult> SendMessage(string message)
     {
-        _messageProducer.SendMessage("Test_Queue", "Test_Routing_Key", message);
+        messageProducer.SendMessage("Test_Queue", "Test_Routing_Key", message);
         return Task.FromResult<IActionResult>(Ok());
     }
 }

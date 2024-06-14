@@ -15,8 +15,8 @@ public static class ServiceCollectionExtensions
             DispatchConsumersAsync = true
         });
 
+        services.AddSingleton<RabbitMQClientService>();
         services.AddSingleton<IMessageProducer, MessageProducer>();
         services.AddSingleton<IMessageConsumer, MessageConsumer>();
-        services.AddSingleton<RabbitMQClientService>();
     }
 }

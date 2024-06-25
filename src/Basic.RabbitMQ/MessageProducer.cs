@@ -1,20 +1,26 @@
 ﻿namespace Basic.RabbitMQ;
 
-public class MessageProducer(RabbitMQClientService rabbitMqClientService) : IMessageProducer
+public class MessageProducer(RabbitMqClientService rabbitMqClientService, ConnectionFactory connectionFactory)
+    : IMessageProducer, IDisposable
 {
+    private readonly IConnection _connection = connectionFactory.CreateConnection();
+
     public void SendMessage(string queueName, string routingKey, string message)
     {
-        using var channel = rabbitMqClientService.Connect(queueName);
+        using var channel = rabbitMqClientService.Connect(_connection, queueName);
         channel.QueueBind(
-            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
             queue: queueName,
-            routingKey: routingKey);
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            routingKey: routingKey,
+            arguments: null);
 
         var json = JsonConvert.SerializeObject(message);
         var body = Encoding.UTF8.GetBytes(json);
 
         var properties = channel.CreateBasicProperties();
+
         properties.Persistent = true;
+        properties.DeliveryMode = 2;
 
         channel.BasicPublish(
             exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
@@ -25,11 +31,12 @@ public class MessageProducer(RabbitMQClientService rabbitMqClientService) : IMes
 
     public void SendMessage<T>(string queueName, string routingKey, T message)
     {
-        using var channel = rabbitMqClientService.Connect(queueName);
+        using var channel = rabbitMqClientService.Connect(_connection, queueName);
         channel.QueueBind(
-            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
             queue: queueName,
-            routingKey: routingKey);
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            routingKey: routingKey,
+            arguments: null);
 
         var json = JsonConvert.SerializeObject(message);
         var body = Encoding.UTF8.GetBytes(json);
@@ -37,11 +44,18 @@ public class MessageProducer(RabbitMQClientService rabbitMqClientService) : IMes
         var properties = channel.CreateBasicProperties();
 
         properties.Persistent = true;
+        properties.DeliveryMode = 2;
 
         channel.BasicPublish(
             exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
             routingKey: routingKey,
             basicProperties: properties,
             body: body);
+
+    }
+
+    public void Dispose()
+    {
+        _connection?.Dispose();
     }
 }

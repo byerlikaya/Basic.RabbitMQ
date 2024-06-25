@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 var configuration = builder.Configuration;
 
-builder.Services.AddRabbitMQClient(configuration);
+builder.Services.AddRabbitMqClient(configuration, ServiceLifetime.Scoped);
 
 var app = builder.Build();
 

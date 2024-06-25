@@ -17,7 +17,7 @@ PM> Install-Package Basic.RabbitMQ
 2. Add services.AddRabbitMQClient(Configuration);
 
 ```csharp
-builder.Services.AddRabbitMQClient(Configuration);
+builder.Services.AddRabbitMqClient(Configuration);
 ```
 
 3. Add the necessary information to the `appsettings.json` file.

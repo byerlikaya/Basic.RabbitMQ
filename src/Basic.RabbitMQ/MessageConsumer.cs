@@ -2,7 +2,7 @@
 
 public class MessageConsumer(RabbitMqClientService rabbitMqClientService) : IMessageConsumer
 {
-    public IModel Channel(string queueName, string routingKey, ushort prefetchCount = 10)
+    public IModel Channel(string queueName, string routingKey, ushort prefetchCount = 1)
     {
         var channel = rabbitMqClientService.Connect(queueName);
 

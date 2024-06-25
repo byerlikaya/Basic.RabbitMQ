@@ -2,7 +2,7 @@
 
 public interface IMessageConsumer
 {
-    IModel Channel(string queueName, string routingKey, ushort prefetchCount = 10);
+    IModel Channel(string queueName, string routingKey, ushort prefetchCount = 1);
 
     AsyncEventingBasicConsumer GetConsumer(IModel channel);
 }

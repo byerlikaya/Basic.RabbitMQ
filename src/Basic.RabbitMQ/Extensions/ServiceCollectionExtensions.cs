@@ -35,6 +35,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<RabbitMqClientService>();
         services.AddSingleton<IMessageConsumer, MessageConsumer>();
+
         CreateConsumerService(services, messageConsumerServiceLifetime);
     }
 

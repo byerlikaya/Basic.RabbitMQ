@@ -51,11 +51,7 @@ public class MessageProducer(RabbitMqClientService rabbitMqClientService, Connec
             routingKey: routingKey,
             basicProperties: properties,
             body: body);
-
     }
 
-    public void Dispose()
-    {
-        _connection?.Dispose();
-    }
+    public void Dispose() => _connection?.Dispose();
 }

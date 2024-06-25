@@ -1,17 +1,18 @@
 ﻿namespace Basic.RabbitMQ;
 
-public class MessageConsumer(RabbitMQClientService rabbitMqClientService) : IMessageConsumer
+public class MessageConsumer(RabbitMqClientService rabbitMqClientService) : IMessageConsumer
 {
-    public IModel Channel(string queueName, string routingKey)
+    public IModel Channel(string queueName, string routingKey, ushort prefetchCount = 10)
     {
         var channel = rabbitMqClientService.Connect(queueName);
 
         channel.QueueBind(
-            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
             queue: queueName,
-            routingKey: routingKey);
+            exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
+            routingKey: routingKey,
+            arguments: null);
 
-        channel.BasicQos(0, 10, false);
+        channel.BasicQos(0, prefetchCount, false);
 
         return channel;
     }

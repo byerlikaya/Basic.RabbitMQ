@@ -30,16 +30,16 @@ public static class ServiceCollectionExtensions
             VirtualHost = messageBrokerOptions.VirtualHost,
             DispatchConsumersAsync = true,
             AutomaticRecoveryEnabled = true,
-            NetworkRecoveryInterval = TimeSpan.FromSeconds(30)
+            NetworkRecoveryInterval = TimeSpan.FromSeconds(30),
+            ClientProvidedName = "Basic.RabbitMQ"
         });
 
         services.AddSingleton<RabbitMqClientService>();
-        services.AddSingleton<IMessageConsumer, MessageConsumer>();
 
-        CreateConsumerService(services, messageConsumerServiceLifetime);
+        CreateConsumerAndProducerService(services, messageConsumerServiceLifetime);
     }
 
-    private static void CreateConsumerService(
+    private static void CreateConsumerAndProducerService(
         IServiceCollection services,
         ServiceLifetime messageConsumerServiceLifetime)
     {
@@ -47,15 +47,19 @@ public static class ServiceCollectionExtensions
         {
             case ServiceLifetime.Singleton:
                 services.AddSingleton<IMessageProducer, MessageProducer>();
+                services.AddSingleton<IMessageConsumer, MessageConsumer>();
                 break;
             case ServiceLifetime.Scoped:
                 services.AddScoped<IMessageProducer, MessageProducer>();
+                services.AddScoped<IMessageConsumer, MessageConsumer>();
                 break;
             case ServiceLifetime.Transient:
                 services.AddTransient<IMessageProducer, MessageProducer>();
+                services.AddTransient<IMessageConsumer, MessageConsumer>();
                 break;
             default:
                 services.AddSingleton<IMessageProducer, MessageProducer>();
+                services.AddSingleton<IMessageConsumer, MessageConsumer>();
                 break;
         }
     }

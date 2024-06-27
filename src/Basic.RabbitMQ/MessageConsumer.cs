@@ -1,19 +1,22 @@
 ﻿namespace Basic.RabbitMQ;
 
-public class MessageConsumer(RabbitMqClientService rabbitMqClientService) : IMessageConsumer
+public class MessageConsumer(
+    RabbitMqClientService rabbitMqClientService,
+    ConnectionFactory connectionFactory) : IMessageConsumer, IDisposable
 {
+    private IConnection _connection;
+
     public IModel Channel(string queueName, string routingKey, ushort prefetchCount = 1)
     {
-        var channel = rabbitMqClientService.Connect(queueName);
+        _connection ??= connectionFactory.CreateConnection();
 
+        var channel = rabbitMqClientService.Connect(_connection, queueName);
         channel.QueueBind(
             queue: queueName,
             exchange: rabbitMqClientService.BrokerOptions.ExchangeName,
             routingKey: routingKey,
             arguments: null);
-
         channel.BasicQos(0, prefetchCount, false);
-
         return channel;
     }
 
@@ -28,4 +31,6 @@ public class MessageConsumer(RabbitMqClientService rabbitMqClientService) : IMes
 
         return consumer;
     }
+
+    public void Dispose() => _connection?.Dispose();
 }

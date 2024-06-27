@@ -4,8 +4,8 @@ namespace Producer.Sample.Api.Controllers;
 // ReSharper disable once HollowTypeName
 public class ProducerController(IMessageProducer messageProducer) : ControllerBase
 {
-    [HttpPost("/sendMessage")]
-    public async Task<IActionResult> SendMessage(string message)
+    [HttpPost("/sendMessageMultiple")]
+    public async Task<IActionResult> SendMessageMultiple(string message)
     {
         await Parallel.ForAsync(0, 10000, (x, _) =>
         {
@@ -14,5 +14,12 @@ public class ProducerController(IMessageProducer messageProducer) : ControllerBa
         });
 
         return Ok();
+    }
+
+    [HttpPost("/sendMessage")]
+    public Task<IActionResult> SendMessage(string message)
+    {
+        messageProducer.SendMessage("Test_Queue", "Test_Routing_Key", $"{message}");
+        return Task.FromResult<IActionResult>(Ok());
     }
 }

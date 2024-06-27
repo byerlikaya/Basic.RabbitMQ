@@ -20,7 +20,7 @@ Console.ReadLine();
 
 return;
 
-Task BasicConsumerReceived(object sender, BasicDeliverEventArgs @event)
+async Task BasicConsumerReceived(object sender, BasicDeliverEventArgs @event)
 {
     var message = Encoding.UTF8.GetString(@event.Body.ToArray());
 
@@ -28,5 +28,5 @@ Task BasicConsumerReceived(object sender, BasicDeliverEventArgs @event)
 
     channel?.BasicAck(@event.DeliveryTag, false);
 
-    return Task.CompletedTask;
+    await Task.Yield();
 }

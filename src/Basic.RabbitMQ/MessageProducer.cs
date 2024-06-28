@@ -1,7 +1,7 @@
 ﻿namespace Basic.RabbitMQ;
 
 public class MessageProducer(RabbitMqClientService rabbitMqClientService, ConnectionFactory connectionFactory)
-    : IMessageProducer, IDisposable
+    : IMessageProducer
 {
     private readonly IConnection _connection = connectionFactory.CreateConnection();
 

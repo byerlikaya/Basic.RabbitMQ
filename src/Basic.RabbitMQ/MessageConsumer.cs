@@ -2,7 +2,7 @@
 
 public class MessageConsumer(
     RabbitMqClientService rabbitMqClientService,
-    ConnectionFactory connectionFactory) : IMessageConsumer, IDisposable
+    ConnectionFactory connectionFactory) : IMessageConsumer
 {
     private IConnection _connection;
 

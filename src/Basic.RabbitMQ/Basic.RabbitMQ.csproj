@@ -13,7 +13,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>.NET Core library that simplifies RabbitMQ usage and works with the Direct Exchange type.</Description>
     <PackageId>Basic.RabbitMQ</PackageId>
-    <Version>2.0.0.1</Version>
+    <Version>2.0.0.2</Version>
     <Product>Basic.RabbitMQ</Product>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>

@@ -68,6 +68,6 @@ Task BasicConsumerReceived(object sender, BasicDeliverEventArgs @event)
 
     channel?.BasicAck(@event.DeliveryTag, false);
 
-    return Task.CompletedTask;
+    await Task.Yield();
 }
 ```

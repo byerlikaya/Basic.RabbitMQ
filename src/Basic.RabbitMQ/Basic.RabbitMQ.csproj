@@ -13,7 +13,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>.NET Core library that simplifies RabbitMQ usage and works with the Direct Exchange type.</Description>
     <PackageId>Basic.RabbitMQ</PackageId>
-    <Version>2.0.0.2</Version>
+    <Version>2.0.1</Version>
     <Product>Basic.RabbitMQ</Product>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
@@ -32,9 +32,9 @@
 
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
   </ItemGroup>
 
 

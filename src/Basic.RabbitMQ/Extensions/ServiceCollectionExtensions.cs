@@ -28,6 +28,7 @@ public static class ServiceCollectionExtensions
             UserName = messageBrokerOptions.Username,
             Password = messageBrokerOptions.Password,
             VirtualHost = messageBrokerOptions.VirtualHost,
+            Port = messageBrokerOptions.Port is default(int) ? AmqpTcpEndpoint.UseDefaultPort : messageBrokerOptions.Port,
             DispatchConsumersAsync = true,
             AutomaticRecoveryEnabled = true,
             NetworkRecoveryInterval = TimeSpan.FromSeconds(30),

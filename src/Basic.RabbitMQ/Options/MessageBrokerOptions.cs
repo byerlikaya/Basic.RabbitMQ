@@ -7,4 +7,5 @@ public class MessageBrokerOptions
     public string Password { get; set; }
     public string ExchangeName { get; set; }
     public string VirtualHost { get; set; }
+    public int Port { get; set; }
 }

@@ -28,7 +28,8 @@ builder.Services.AddRabbitMqClient(Configuration);
     "UserName": "",
     "Password": "",
     "ExchangeName": "",
-    "VirtualHost": ""
+    "VirtualHost": "",
+    "Port": -1
   }
 ```
 
